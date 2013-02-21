@@ -23,6 +23,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.commonjava.test.http.server.Content;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
@@ -40,8 +41,6 @@ public class RequestHandler
     private static final String CONTENT_LENGTH = "Content-Length";
 
     private static final String CONTENT_TYPE = "Content-Type";
-
-    //    private final Logger logger = new Logger( getClass() );
 
     private final Map<String, Content> contentMap;
 
@@ -65,8 +64,7 @@ public class RequestHandler
             response.setStatus( HttpServletResponse.SC_OK );
             response.setHeader( CONTENT_LENGTH, Long.toString( content.getContentLength() ) );
             response.setHeader( CONTENT_TYPE, content.getContentType() );
-            response.getOutputStream()
-                    .write( content.getBytes() );
+            IOUtils.copy( content.getStream(), response.getOutputStream() );
         }
 
         baseRequest.setHandled( true );

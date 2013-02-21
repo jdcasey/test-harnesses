@@ -1,11 +1,12 @@
 package org.commonjava.test.http.server.impl;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.activation.MimetypesFileTypeMap;
 
-import org.apache.commons.io.FileUtils;
 import org.commonjava.test.http.server.Content;
 
 public class FileContent
@@ -54,10 +55,10 @@ public class FileContent
     }
 
     @Override
-    public byte[] getBytes()
+    public InputStream getStream()
         throws IOException
     {
-        return FileUtils.readFileToByteArray( file );
+        return new FileInputStream( file );
     }
 
 }

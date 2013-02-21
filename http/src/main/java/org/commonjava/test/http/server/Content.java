@@ -1,6 +1,7 @@
 package org.commonjava.test.http.server;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 public interface Content
 {
@@ -11,7 +12,7 @@ public interface Content
 
     String getContentType();
 
-    byte[] getBytes()
+    InputStream getStream()
         throws IOException;
 
 }
